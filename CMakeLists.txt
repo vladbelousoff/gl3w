@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.3 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(gl3w)
 
@@ -22,7 +22,7 @@ set(SOURCE_FILES
 find_package(OpenGL REQUIRED)
 
 # find python interpreter
-find_package(PythonInterp REQUIRED)
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
 
 if(CMAKE_VERSION VERSION_LESS 3.8.0)
 	set(EXTERNAL_INCLUDE_DIRS ${EXTERNAL_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR})
@@ -38,7 +38,7 @@ add_custom_command(
 		"${HEADER_DIR}/GL/gl3w.h"
 		"${HEADER_DIR}/GL/glcorearb.h"
 		"${HEADER_DIR}/KHR/khrplatform.h"
-	COMMAND "${PYTHON_EXECUTABLE}" ${CMAKE_CURRENT_SOURCE_DIR}/gl3w_gen.py
+	COMMAND "${Python3_EXECUTABLE}" ${CMAKE_CURRENT_SOURCE_DIR}/gl3w_gen.py
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/gl3w_gen.py
 	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
